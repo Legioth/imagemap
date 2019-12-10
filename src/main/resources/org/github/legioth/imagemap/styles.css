@@ -1,0 +1,16 @@
+:host {
+	position: relative;
+}
+
+.area {
+	position: absolute;
+	box-sizing: border-box;
+	cursor: var(--imagemap-cursor, pointer);
+	border: var(--imagemap-border);
+	background: var(--imagemap-background);
+}
+
+.area:hover {
+	border: var(--imagemap-hover-border, var(--imagemap-border));
+	background: var(--imagemap-hover-background, rgba(0,0,0,0.1));
+}

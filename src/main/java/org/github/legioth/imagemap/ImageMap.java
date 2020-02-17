@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -129,7 +130,8 @@ public class ImageMap extends Component {
         public Registration addClickListener(ComponentEventListener<AreaClickEvent> listener) {
             Objects.requireNonNull(listener, "Listener cannot be null");
             return element.addEventListener("click",
-                    event -> listener.onComponentEvent(new AreaClickEvent(owner, this, true)));
+                    event -> listener.onComponentEvent(new AreaClickEvent(owner, this, true)))
+                    .addEventData("event.stopPropagation()");
         }
 
         /**
@@ -391,5 +393,18 @@ public class ImageMap extends Component {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    /**
+     * Adds a click listener that is invoked whenever clicking inside this image
+     * map but outside any area that has a click listener.
+     * 
+     * @param listener
+     *            the click listener to add, not <code>null</code>
+     * @return a handle that can be used for removing the listener
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public Registration addNoAreaClickListener(ComponentEventListener<ClickEvent<ImageMap>> listener) {
+        return addListener(ClickEvent.class, (ComponentEventListener) listener);
     }
 }

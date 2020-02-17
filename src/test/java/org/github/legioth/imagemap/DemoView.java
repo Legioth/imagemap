@@ -22,6 +22,8 @@ public class DemoView extends Div {
         imageMap.addArea(280, 468, 433, 417).setTitle("Nose").setBackground("rgba(0,0,0,0.2)").setBorder("none")
                 .setHoverBorder("2px dotted black").addClickListener(event -> Notification.show("Nose"));
 
+        imageMap.addNoAreaClickListener(event -> Notification.show("Click outside any area"));
+
         add(imageMap);
     }
 
